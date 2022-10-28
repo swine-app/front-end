@@ -1,12 +1,12 @@
-import UserForm from './UserForm';
-// import Login from './Login';
+import Login from './Login';
+import config from "./config";
 
 function App() {
+  console.log(process.env)
+  console.log(config)
   return (
     <div className="App">
-      <header className="App-header">
-        <UserForm/>
-      </header>
+      <Login />
     </div>
   );
 
