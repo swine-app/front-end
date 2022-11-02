@@ -1,12 +1,22 @@
-import Login from './Login';
-import config from "./config";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Root from './Root';
+import Login from './pages/Login';
+import PreCommit from "./pages/PreCommit";
+
+const router = createBrowserRouter([
+  {path: "/login", element: <Login />},
+  {path: "/", element: <Root />, children: [
+    {path: "precommit", element: <PreCommit />}
+  ]}
+])
 
 function App() {
-  console.log(process.env)
-  console.log(config)
   return (
     <div className="App">
-      <Login />
+      <RouterProvider router={router} />
     </div>
   );
 
