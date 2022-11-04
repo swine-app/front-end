@@ -28,7 +28,8 @@ const Login = () => {
         title: "Login Successful",
         description: `Logged in as ${data.userName}`,
         status: "success",
-        position: "top-right"
+        position: "top-right",
+        isClosable: true
       })
       setLoginSuccess(true);
     }
@@ -38,7 +39,8 @@ const Login = () => {
         title: "Login Failed",
         description: `No account for ${data.userName}`,
         status: 'error',
-        position: 'top-right'
+        position: 'top-right',
+        isClosable: true
       })
     }
   }

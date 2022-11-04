@@ -22,6 +22,5 @@ export default function SideBar() {
         Log Out
       </Link>
     </Flex>
-
   )
 }
