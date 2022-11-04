@@ -1,6 +1,5 @@
 import {
   Outlet,
-  useLocation,
   useNavigate,
 } from "react-router-dom";
 import { useContext, useEffect } from 'react';
@@ -10,14 +9,12 @@ import SideBarLayout from "./layouts/SideBarLayout";
 export default function Root() {
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
-    console.debug(location.pathname)
-    if(!auth && location.pathname !== "/login") {
+    if(!auth) {
       navigate("/login");
     }
-  }, [auth, navigate, location.pathname]);
+  }, [auth, navigate]);
 
   return <SideBarLayout><Outlet /></SideBarLayout>;
 }
