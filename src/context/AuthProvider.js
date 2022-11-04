@@ -10,23 +10,15 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(JSON.parse(localStorage.getItem('auth')));
 
-
-  //Store session in browser
-  useEffect(() => {
-    if (auth) {
-      console.debug("Saving Session")
-      localStorage.setItem('auth', JSON.stringify(auth));
-    }
-  }, [auth])
-
-
   const login = useCallback(async (userName, password) => {
     const resp = await axios.post(`${config.apiUrl}/api/login`, {userName, password})
     const data = resp.data
-    setAuth({
+    const thisAuth = {
       rawJWT: data.token,
       decodedJWT: JSON.parse(atob(data.token.split(".")[1], "base64"))
-    })
+    }
+    setAuth(thisAuth)
+    localStorage.setItem('auth', JSON.stringify(thisAuth));
   }, [setAuth])
 
   const logout = useCallback(() => {

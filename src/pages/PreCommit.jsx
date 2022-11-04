@@ -71,7 +71,7 @@ export default function PreCommit () {
         </Box>
       </Grid>
       <Flex justifyContent="center" py="6">
-        <Button> Submit </Button>
+        <Button onClick={handleSubmit}> Submit </Button>
       </Flex>
     </Box>
   )
