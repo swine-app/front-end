@@ -3,24 +3,15 @@
 // import axios from "axios";
 import { Box, Button, Flex, Input, Text, useToast } from "@chakra-ui/react";
 import AuthContext from "../context/AuthProvider";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const {auth, login} = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const toast = useToast();
   const navigate = useNavigate();
-
-  useEffect(() => console.log(auth), [auth])
-
-  useEffect(() => {
-    if (auth) {
-      navigate("/precommit");
-    }
-
-  }, [auth, navigate])
 
   const onSubmit = async (data) => {
     try {
@@ -31,6 +22,7 @@ const Login = () => {
         status: "success",
         position: "top-right"
       })
+      navigate("/precommit")
     }
     catch (err) {
       console.error(err);

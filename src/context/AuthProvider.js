@@ -8,21 +8,8 @@ const AuthContext = createContext({
 });
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState(JSON.parse(localStorage.getItem('auth')));
 
-
-  useEffect(() => {
-    // window.addEventListener('storage', (event) => {
-    //   console.log(event);
-    //   if (event.storageArea === localStorage && event.key === 'auth') {
-    //     setLocalAuth(JSON.parse(localStorage.getItem('auth')));
-    //   }
-    // });
-    if (localStorage.key("auth")) {
-      console.debug("Restoring Session")
-      setAuth(JSON.parse(localStorage.getItem('auth')))
-    }
-  }, []);
 
   //Store session in browser
   useEffect(() => {
