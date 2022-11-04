@@ -1,8 +1,15 @@
-import { Box, Text, Grid, Input, Flex, Button } from "@chakra-ui/react";
+import { Box, Text, Grid, Input, Flex, Button, NumberInput, NumberInputField} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+
 
 export default function PreCommit () {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const format = (val) => `$` + val
+  const parse = (val) => val.replace(/^\$/,'')
+  
+
+
   return (
     <Box>
       <Text py="4" fontSize={{ base: "xl", md: "3xl" }} fontWeight="bold" >
@@ -55,12 +62,14 @@ export default function PreCommit () {
         </Box>
         <Box>
           <Text pl="2" color="gray.800"> Commitment Amount </Text>
-          <Input
+          <NumberInput
             isInvalid={errors.commitmentAmount}
             id="commitmentAmount"
-            placeholder="MM/DD/YYYY"
-            {...register("commitmentAmount", { required: true })}
-          />
+            defaultValue={0}
+            {...register("registeredCommitment", { required: true, onChange:(e)=>{console.log(e);parse(e)}})}
+          >
+          <NumberInputField />
+          </NumberInput>
         </Box>
         <Box>
           <Text pl="2" color="gray.800"> Commitment Type </Text>
