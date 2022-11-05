@@ -41,11 +41,11 @@ export default function PreCommit () {
           />
         </Box>
         <Box>
-          <Text pl="2" color="gray.800"> Meeting Date </Text>
+          <Text pl="2" color="gray.800"> Meeting Id </Text>
           <Input
             isInvalid={errors.meeting}
             id="meeting"
-            placeholder="MM/DD/YYYY"
+            placeholder="id"
             {...register("meeting", { required: true })}
           />
         </Box>
