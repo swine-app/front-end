@@ -1,12 +1,13 @@
 import { Box, Text, Grid, Input, Flex, Button, NumberInput, NumberInputField} from "@chakra-ui/react";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 
 export default function PreCommit () {
-  const { register, handleSubmit, formState: { errors }, control } = useForm();
-  const format = (val) => `$ ` + val
-  const parse = (val) => val.replace(/^\$ /,'')
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const format = (val) => `$` + val
+  const parse = (val) => val.replace(/^\$/,'')
+
+  const { onChange, ref, name, onBlur } = register("commitmentAmount", { required: true });
  
   return (
     <Box>
@@ -60,24 +61,14 @@ export default function PreCommit () {
         </Box>
         <Box>
           <Text pl="2" color="gray.800"> Commitment Amount </Text>
-          <Controller
-            control={control}
-            name="commitmentAmount"
+          <NumberInput
+            isInvalid={errors.commitmentAmount}
             defaultValue={0}
-            render={({
-              field: { onChange, onBlur, value, ref },
-              fieldState: {error}
-            }) => (
-              <NumberInput
-                onChange={(s) => onChange(parse(s))}
-                isInvalid={error}
-                onBlur={onBlur}
-                value={format(value)}
-              >
-                <NumberInputField ref={ref}/>
-              </NumberInput>
-            )}
-          />
+            onChange={(s) => onChange(parse(s))}
+            onBlur={onBlur}
+          >
+            <NumberInputField ref={ref} name="commitmentAmount"/>
+          </NumberInput>
         </Box>
         <Box>
           <Text pl="2" color="gray.800"> Commitment Type </Text>
