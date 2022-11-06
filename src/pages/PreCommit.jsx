@@ -1,6 +1,5 @@
 import { Box, Text, Grid, Input, Flex, Button, NumberInput, NumberInputField, useToast, Select, Spinner} from "@chakra-ui/react";
 import axios from "axios";
-import DatePicker from "react-datepicker";
 import { useContext, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import config from "../config"
@@ -120,7 +119,7 @@ export default function PreCommit () {
   };
  
   return ( loadingTeams || loadingMembers || loadingMeetings || submitting ? 
-    <Flex justify="center" alignItems="center"><Spinner size="xl"/></Flex> :
+    <Flex justify="center" h="100vh" alignItems="center"><Spinner size="xl"/></Flex> :
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Text py="4" fontSize={{ base: "xl", md: "3xl" }} fontWeight="bold" >
