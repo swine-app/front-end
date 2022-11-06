@@ -35,14 +35,15 @@ export default function PreCommit () {
         setTeams(teamsRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Teams", status: "error" })
+        toast({ title: "Failed Getting Teams", status: "error", description: err })
+        console.error(err);
       }
       finally {
         setLoadingTeams(false);
       }
     }
     getTeams();
-  }, [auth.rawJWT, toast])
+  }, [auth?.rawJWT, toast])
   const [members, setMembers] = useState([]);
   const [loadingMembers, setLoadingMembers] = useState(false);
   useEffect(() => {
@@ -56,7 +57,8 @@ export default function PreCommit () {
         setMembers(membersRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Members", status: "error" })
+        toast({ title: "Failed Getting Members", status: "error", description: err  })
+        console.error(err);
       }
       finally {
         setLoadingMembers(false);
@@ -77,7 +79,8 @@ export default function PreCommit () {
         setMeetings(meetingsRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Meetings", status: "error" })
+        toast({ title: "Failed Getting Meetings", status: "error", description: err  })
+        console.error(err);
       }
       finally {
         setLoadingMeetings(false);
