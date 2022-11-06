@@ -39,7 +39,9 @@ export default function PreCommit () {
         setLoadingTeams(false);
       }
     }
-    getTeams();
+    if (auth?.rawJWT) {
+      getTeams();
+    }
   }, [auth?.rawJWT, toast])
   const [members, setMembers] = useState([]);
   const [loadingMembers, setLoadingMembers] = useState(false);
@@ -61,7 +63,9 @@ export default function PreCommit () {
         setLoadingMembers(false);
       }
     }
-    getMembers();
+    if (auth?.rawJWT) {
+      getMembers();
+    }
   }, [auth?.rawJWT, toast])
   const [meetings, setMeetings] = useState([]);
   const [loadingMeetings, setLoadingMeetings] = useState(false);
@@ -83,7 +87,9 @@ export default function PreCommit () {
         setLoadingMeetings(false);
       }
     }
-    getMeetings();
+    if (auth?.rawJWT) {
+      getMeetings();
+    }
   }, [auth?.rawJWT, toast])
 
   const format = (val) => `$ ` + val
