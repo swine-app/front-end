@@ -5,9 +5,6 @@ import { Controller, useForm } from "react-hook-form";
 import config from "../config"
 import AuthorizationContext from "../context/AuthProvider";
 
-import "react-datepicker/dist/react-datepicker.css";
-
-
 export default function PreCommit () {
   const {
     register,
