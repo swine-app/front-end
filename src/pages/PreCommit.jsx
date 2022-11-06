@@ -65,7 +65,7 @@ export default function PreCommit () {
       }
     }
     getMembers();
-  }, [auth.rawJWT, toast])
+  }, [auth?.rawJWT, toast])
   const [meetings, setMeetings] = useState([]);
   const [loadingMeetings, setLoadingMeetings] = useState(false);
   useEffect(() => {
@@ -87,7 +87,7 @@ export default function PreCommit () {
       }
     }
     getMeetings();
-  }, [auth.rawJWT, toast])
+  }, [auth?.rawJWT, toast])
 
   const format = (val) => `$ ` + val
   const parse = (val) => val.replace(/^\$ /,'')
