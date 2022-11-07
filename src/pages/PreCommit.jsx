@@ -102,12 +102,12 @@ export default function PreCommit () {
       const res = await axios.post(
         `${config.apiUrl}/api/precommit`,
         {
-          team_id: parseInt(data.team),
-          member_id: parseInt(data.member),
-          meeting_id: parseInt(data.meeting_id),
-          order_date: data.date,
+          teamId: parseInt(data.team),
+          memberId: parseInt(data.member),
+          meetingId: parseInt(data.meeting_id),
+          orderDate: data.date,
           amount: parseFloat(data.amount),
-          commitment_type: data.commitmentType
+          commitmentType: data.commitmentType
         },
         {
           headers: {"Authorization": auth.rawJWT},
