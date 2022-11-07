@@ -97,6 +97,7 @@ export default function PreCommit () {
 
   const [submitting, setSubmitting] = useState(false);
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       setSubmitting(true);
       const res = await axios.post(
@@ -104,9 +105,9 @@ export default function PreCommit () {
         {
           teamId: parseInt(data.team),
           memberId: parseInt(data.member),
-          meetingId: parseInt(data.meeting_id),
+          meetingId: parseInt(data.meeting),
           orderDate: data.date,
-          amount: parseFloat(data.amount),
+          amount: parseFloat(data.commitmentAmount),
           commitmentType: data.commitmentType
         },
         {
