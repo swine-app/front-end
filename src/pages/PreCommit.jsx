@@ -9,6 +9,7 @@ export default function PreCommit () {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     control
   } = useForm({defaultValues: {
@@ -21,6 +22,13 @@ export default function PreCommit () {
   // Get api data for form entry
   const [teams, setTeams] = useState([]);
   const [loadingTeams, setLoadingTeams] = useState(false);
+  useEffect(() => {
+    if (!auth.decodedJWT.admin){
+      if (teams.length >= 1) {
+        setValue("team", teams[0].id)
+      }
+    }
+  }, [auth.decodedJWT.admin, teams, setValue])
   useEffect(() => {
     const getTeams = async () => {
       try {
@@ -143,7 +151,7 @@ export default function PreCommit () {
         >
           <Box>
             <Text pl="2" color="gray.800"> Team Number </Text>
-            <Select placeholder='None' {...register("team", { required: true })}>
+            <Select placeholder='None' disabled={!auth?.decodedJWT?.admin} {...register("team", { required: true })}>
               { teams.map((team) => 
                 <option key={`team-opt-${team.id}`} value={team.id}>{team.name} </option>
               )}
