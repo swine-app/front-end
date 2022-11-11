@@ -23,12 +23,12 @@ export default function PreCommit () {
   const [teams, setTeams] = useState([]);
   const [loadingTeams, setLoadingTeams] = useState(false);
   useEffect(() => {
-    if (!auth.decodedJWT.admin){
+    if (!auth?.decodedJWT?.admin){
       if (teams.length >= 1) {
         setValue("team", teams[0].id)
       }
     }
-  }, [auth.decodedJWT.admin, teams, setValue])
+  }, [auth?.decodedJWT?.admin, teams, setValue])
   useEffect(() => {
     const getTeams = async () => {
       try {
