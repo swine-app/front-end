@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(JSON.parse(localStorage.getItem('auth')));
 
   const login = useCallback(async (userName, password) => {
-    const resp = await axios.post(`${config.apiUrl}/api/login`, {userName, password})
+    const resp = await axios.post(`${config.apiUrl}/api/login`, { userName, password })
     const data = resp.data
     const thisAuth = {
       rawJWT: data.token,
@@ -26,8 +26,8 @@ export const AuthProvider = ({ children }) => {
     setAuth(null);
   }, []);
 
-  return(
-    <AuthContext.Provider value={{auth, login, logout}}>
+  return (
+    <AuthContext.Provider value={{ auth, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

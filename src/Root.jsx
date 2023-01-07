@@ -11,7 +11,7 @@ export default function Root() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!auth) {
+    if (!auth) {
       navigate("/login");
     }
   }, [auth, navigate]);

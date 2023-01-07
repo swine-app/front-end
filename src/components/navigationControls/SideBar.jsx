@@ -12,7 +12,7 @@ export default function SideBar() {
     <Flex flexDirection="column" height="100vh" borderRight="1px" borderColor="gray.300">
       <Image width="full" p="4" src={logo} />
       <Box h="16" />
-      <Link ml="4"  p="1" color="gray.600" onClick={() => navigate("/precommit")} >
+      <Link ml="4" p="1" color="gray.600" onClick={() => navigate("/precommit")} >
         Pre-Commitment Entry
       </Link>
       <Link ml="4" p="1" color="gray.600" onClick={() => navigate("/reporting")} >

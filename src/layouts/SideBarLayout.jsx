@@ -2,10 +2,10 @@ import { Grid, Box, Show } from "@chakra-ui/react";
 import SideBar from "../components/navigationControls/SideBar";
 import TopBar from "../components/navigationControls/TopBar";
 
-export default function SideBarLayout ({ children }) {
+export default function SideBarLayout({ children }) {
   return (
-    <Grid 
-      templateColumns={{base: 'auto', md: "15em auto"}} 
+    <Grid
+      templateColumns={{ base: 'auto', md: "15em auto" }}
       templateRows={{ base: "4.3em auto", sm: "6em auto", md: "auto" }}
     >
       <Show above="md">

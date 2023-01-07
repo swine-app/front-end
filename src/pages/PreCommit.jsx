@@ -1,29 +1,31 @@
-import { Box, Text, Grid, Input, Flex, Button, NumberInput, NumberInputField, useToast, Select, Spinner} from "@chakra-ui/react";
+import { Box, Text, Grid, Input, Flex, Button, NumberInput, NumberInputField, useToast, Select, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import config from "../config"
 import AuthorizationContext from "../context/AuthProvider";
 
-export default function PreCommit () {
+export default function PreCommit() {
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
+    // formState: { errors },
     control
-  } = useForm({defaultValues: {
-    commitmentAmount: "0",
-  }});
+  } = useForm({
+    defaultValues: {
+      commitmentAmount: "0",
+    }
+  });
 
   const { auth } = useContext(AuthorizationContext);
   const toast = useToast();
- 
+
   // Get api data for form entry
   const [teams, setTeams] = useState([]);
   const [loadingTeams, setLoadingTeams] = useState(false);
   useEffect(() => {
-    if (!auth?.decodedJWT?.admin){
+    if (!auth?.decodedJWT?.admin) {
       if (teams.length >= 1) {
         setValue("team", teams[0].id)
       }
@@ -64,7 +66,7 @@ export default function PreCommit () {
         setMembers(membersRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Members", status: "error", description: err  })
+        toast({ title: "Failed Getting Members", status: "error", description: err })
         console.error(err);
       }
       finally {
@@ -88,7 +90,7 @@ export default function PreCommit () {
         setMeetings(meetingsRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Meetings", status: "error", description: err  })
+        toast({ title: "Failed Getting Meetings", status: "error", description: err })
         console.error(err);
       }
       finally {
@@ -101,7 +103,7 @@ export default function PreCommit () {
   }, [auth?.rawJWT, toast])
 
   const format = (val) => `$ ` + val
-  const parse = (val) => val.replace(/^\$ /,'')
+  const parse = (val) => val.replace(/^\$ /, '')
 
   const [submitting, setSubmitting] = useState(false);
   const onSubmit = async (data) => {
@@ -115,11 +117,10 @@ export default function PreCommit () {
           memberId: parseInt(data.member),
           meetingId: parseInt(data.meeting),
           orderDate: data.date,
-          amount: parseFloat(data.commitmentAmount),
-          commitmentType: data.commitmentType
+          amount: parseFloat(data.commitmentAmount)
         },
         {
-          headers: {"Authorization": auth.rawJWT},
+          headers: { "Authorization": auth.rawJWT },
         }
       )
       toast({ title: `Successfully submitted precommit entry ${res.data.id}`, status: "success", position: "top-right" })
@@ -132,9 +133,9 @@ export default function PreCommit () {
       setSubmitting(false)
     }
   };
- 
-  return ( loadingTeams || loadingMembers || loadingMeetings || submitting ? 
-    <Flex justify="center" h="100vh" alignItems="center"><Spinner size="xl"/></Flex> :
+
+  return (loadingTeams || loadingMembers || loadingMeetings || submitting ?
+    <Flex justify="center" h="100vh" alignItems="center"><Spinner size="xl" /></Flex> :
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Text py="4" fontSize={{ base: "xl", md: "3xl" }} fontWeight="bold" >
@@ -152,7 +153,7 @@ export default function PreCommit () {
           <Box>
             <Text pl="2" color="gray.800"> Team Number </Text>
             <Select placeholder='None' disabled={!auth?.decodedJWT?.admin} {...register("team", { required: true })}>
-              { teams.map((team) => 
+              {teams.map((team) =>
                 <option key={`team-opt-${team.id}`} value={team.id}>{team.name} </option>
               )}
             </Select>
@@ -160,7 +161,7 @@ export default function PreCommit () {
           <Box>
             <Text pl="2" color="gray.800"> Member Name </Text>
             <Select placeholder='None' {...register("member", { required: true })}>
-              { members.map((member) => 
+              {members.map((member) =>
                 <option key={`member-opt-${member.id}`} value={member.id}>
                   {`${member.first_name} ${member.last_name}`}
                 </option>
@@ -170,7 +171,7 @@ export default function PreCommit () {
           <Box>
             <Text pl="2" color="gray.800"> Meeting Date </Text>
             <Select placeholder='None' {...register("meeting", { required: true })}>
-              { meetings.map((meeting) => 
+              {meetings.map((meeting) =>
                 <option key={`meeting-opt-${meeting.id}`} value={meeting.id}>
                   {`${meeting.date}`}
                 </option>
@@ -188,7 +189,7 @@ export default function PreCommit () {
               name="commitmentAmount"
               render={({
                 field: { onChange, onBlur, value, ref },
-                fieldState: {error}
+                fieldState: { error }
               }) => {
                 return (
                   <NumberInput
@@ -201,21 +202,13 @@ export default function PreCommit () {
                     pattern={"\\$ [0-9]*(.[0-9]+)?"}
                     onBlur={onBlur}
                     value={format(value)}
-                    
+
                     name="commitmentAmount"
                   >
-                    <NumberInputField id="commitmentAmount" ref={ref}/>
+                    <NumberInputField id="commitmentAmount" ref={ref} />
                   </NumberInput>
-              )}}
-            />
-          </Box>
-          <Box>
-            <Text pl="2" color="gray.800"> Commitment Type </Text>
-            <Input
-              isInvalid={errors.commitmentType}
-              id="commitmentType"
-              placeholder="Pack of Bacon"
-              {...register("commitmentType", { required: true })}
+                )
+              }}
             />
           </Box>
         </Grid>

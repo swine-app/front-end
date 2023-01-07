@@ -4,10 +4,10 @@ import axios from "axios";
 import config from "../config";
 import AuthContext from "../context/AuthProvider";
 
-export default function Reporting () {
+export default function Reporting() {
   const { auth } = useContext(AuthContext);
   const toast = useToast()
-  
+
   // Get api data for form entry
   const [teams, setTeams] = useState([]);
   const [team, setTeam] = useState("");
@@ -34,7 +34,7 @@ export default function Reporting () {
       getTeams();
     }
   }, [auth?.rawJWT, toast])
-  const getReportTeam = useCallback( async () => {
+  const getReportTeam = useCallback(async () => {
     let res;
     try {
       res = await axios.post(
@@ -73,7 +73,7 @@ export default function Reporting () {
         setMembers(membersRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Members", status: "error", description: err  })
+        toast({ title: "Failed Getting Members", status: "error", description: err })
         console.error(err);
       }
       finally {
@@ -84,7 +84,7 @@ export default function Reporting () {
       getMembers();
     }
   }, [auth?.rawJWT, toast])
-  const getReportMember = useCallback( async () => {
+  const getReportMember = useCallback(async () => {
     let res;
     try {
       res = await axios.post(
@@ -123,7 +123,7 @@ export default function Reporting () {
         setMeetings(meetingsRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Meetings", status: "error", description: err  })
+        toast({ title: "Failed Getting Meetings", status: "error", description: err })
         console.error(err);
       }
       finally {
@@ -134,7 +134,7 @@ export default function Reporting () {
       getMeetings();
     }
   }, [auth?.rawJWT, toast])
-  const getReportMeeting = useCallback( async () => {
+  const getReportMeeting = useCallback(async () => {
     let res;
     try {
       res = await axios.post(
@@ -160,16 +160,16 @@ export default function Reporting () {
     URL.revokeObjectURL(href);
   }, [meeting, auth?.rawJWT, toast])
 
-  return ( loadingTeams || loadingMembers || loadingMeetings ? 
-    <Flex justify="center" h="100vh" alignItems="center"><Spinner size="xl"/></Flex> :
+  return (loadingTeams || loadingMembers || loadingMeetings ?
+    <Flex justify="center" h="100vh" alignItems="center"><Spinner size="xl" /></Flex> :
     <Box>
       <Text py="4" fontSize={{ base: "xl", md: "3xl" }} fontWeight="bold" >
         Precommit Report
       </Text>
-      <Grid templateColumns={{base: "repeat(1, 1fr)", md: "repeat(3, 1fr)"}} gap="2">
+      <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }} gap="2">
         <Box>
           <Select py="2" placeholder='None' onChange={(e) => setTeam(e.target.value)} value={team}>
-            { teams.map((team) => 
+            {teams.map((team) =>
               <option key={`team-opt-${team.id}`} value={team.id}>{team.name} </option>
             )}
           </Select>
@@ -177,7 +177,7 @@ export default function Reporting () {
         </Box>
         <Box>
           <Select py="2" placeholder='None' onChange={(e) => setMember(e.target.value)} value={member}>
-            { members.map((member) => 
+            {members.map((member) =>
               <option key={`member-opt-${member.id}`} value={member.id}>
                 {`${member.first_name} ${member.last_name}`}
               </option>
@@ -187,7 +187,7 @@ export default function Reporting () {
         </Box>
         <Box>
           <Select py="2" placeholder='None' onChange={(e) => setMeeting(e.target.value)} value={meeting}>
-            { meetings.map((meeting) => 
+            {meetings.map((meeting) =>
               <option key={`meeting-opt-${meeting.id}`} value={meeting.id}>
                 {`${meeting.date}`}
               </option>

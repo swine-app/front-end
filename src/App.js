@@ -9,12 +9,14 @@ import PreCommit from "./pages/PreCommit";
 import Reporting from "./pages/Reporting";
 
 const router = createHashRouter([
-  {path: "/login", element: <Login />},
-  {path: "/", element: <Root />, children: [
-    {path: "", element: <Home />},
-    {path: "precommit", element: <PreCommit />},
-    {path: "reporting", element: <Reporting />}
-  ]}
+  { path: "/login", element: <Login /> },
+  {
+    path: "/", element: <Root />, children: [
+      { path: "", element: <Home /> },
+      { path: "precommit", element: <PreCommit /> },
+      { path: "reporting", element: <Reporting /> }
+    ]
+  }
 ])
 
 function App() {
