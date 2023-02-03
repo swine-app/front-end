@@ -23,7 +23,7 @@ export default function Reporting() {
         setTeams(teamsRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Teams", status: "error", description: err })
+        toast({ title: "Failed Getting Teams", status: "error", description: err.message, position: "top-right" })
         console.error(err);
       }
       finally {
@@ -44,7 +44,13 @@ export default function Reporting() {
       )
     }
     catch (err) {
-      toast({ title: "Failed to fetch report", status: "error", description: err })
+      console.log("error")
+      if (err.response.status === 404) {
+        toast({ title: "Failed to fetch report", status: "error", description: "No precommits by Team", position: "top-right" })
+      }
+      else {
+        toast({ title: "Failed to fetch report", status: "error", description: err.message, position: "top-right" })
+      }
       console.error(err)
       return
     }
@@ -73,7 +79,7 @@ export default function Reporting() {
         setMembers(membersRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Members", status: "error", description: err })
+        toast({ title: "Failed Getting Members", status: "error", description: err.message, position: "top-right" })
         console.error(err);
       }
       finally {
@@ -94,7 +100,12 @@ export default function Reporting() {
       )
     }
     catch (err) {
-      toast({ title: "Failed to fetch report", status: "error", description: err })
+      if (err.response.status === 404) {
+        toast({ title: "Failed to fetch report", status: "error", description: "No precommits by Member", position: "top-right" })
+      }
+      else {
+        toast({ title: "Failed to fetch report", status: "error", description: err.message, position: "top-right" })
+      }
       console.error(err)
       return
     }
@@ -123,7 +134,7 @@ export default function Reporting() {
         setMeetings(meetingsRes.data);
       }
       catch (err) {
-        toast({ title: "Failed Getting Meetings", status: "error", description: err })
+        toast({ title: "Failed Getting Meetings", status: "error", description: err.message, position: "top-right" })
         console.error(err);
       }
       finally {
@@ -144,7 +155,12 @@ export default function Reporting() {
       )
     }
     catch (err) {
-      toast({ title: "Failed to fetch report", status: "error", description: err })
+      if (err.response.status === 404) {
+        toast({ title: "Failed to fetch report", status: "error", description: "No precommits by Meeting", position: "top-right" })
+      }
+      else {
+        toast({ title: "Failed to fetch report", status: "error", description: err.message, position: "top-right" })
+      }
       console.error(err)
       return
     }

@@ -27,10 +27,11 @@ export default function PreCommit() {
   useEffect(() => {
     if (!auth?.decodedJWT?.admin) {
       if (teams.length >= 1) {
-        setValue("team", teams[0].id)
-      }
+        const myTeamIdx = teams.findIndex((team) => team.id === auth?.decodedJWT?.id)
+        setValue("team", teams[myTeamIdx].id)
+     }
     }
-  }, [auth?.decodedJWT?.admin, teams, setValue])
+  }, [auth?.decodedJWT?.admin, auth?.decodedJWT?.id, teams, setValue])
   useEffect(() => {
     const getTeams = async () => {
       try {
