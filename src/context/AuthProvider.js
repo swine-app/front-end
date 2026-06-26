@@ -21,13 +21,23 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('auth', JSON.stringify(thisAuth));
   }, [setAuth])
 
+  const demoLogin = useCallback(() => {
+    const demoPayload = { admin: true, id: 1 };
+    const demoAuth = {
+      rawJWT: `demo.${btoa(JSON.stringify(demoPayload))}.demo`,
+      decodedJWT: demoPayload,
+    };
+    setAuth(demoAuth);
+    localStorage.setItem("auth", JSON.stringify(demoAuth));
+  }, []);
+
   const logout = useCallback(() => {
     localStorage.removeItem("auth");
     setAuth(null);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ auth, login, logout }}>
+    <AuthContext.Provider value={{ auth, login, logout, demoLogin }}>
       {children}
     </AuthContext.Provider>
   );

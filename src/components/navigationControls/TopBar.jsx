@@ -1,26 +1,49 @@
 import { useContext } from "react";
-import { Box, Flex, Image, Link, Spacer } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import logo from "./SwineAuctionLogo.jpg"
+import { Flex, HStack, Image, Link, Spacer, Text } from "@chakra-ui/react";
+import { useNavigate, useLocation } from "react-router-dom";
+import logo from "./SwineAuctionLogo.jpg";
 import AuthContext from "../../context/AuthProvider";
 
-export default function SideBar() {
+// Mobile / narrow-viewport top bar (shown below the `md` breakpoint).
+export default function TopBar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { logout } = useContext(AuthContext);
+  const path = location.pathname;
+
+  const linkStyle = (active) => ({
+    px: { base: "2", sm: "4" },
+    fontSize: { base: "sm", sm: "md" },
+    fontWeight: active ? "600" : "500",
+    color: active ? "brand.700" : "sand.700",
+    cursor: "pointer",
+    _hover: { color: "brand.700" },
+  });
 
   return (
-    <Flex flexDirection="row" alignItems="center" justify="end" borderBottom="1px" borderColor="gray.300">
-      <Image p="2" height="full" src={logo} />
+    <Flex
+      align="center"
+      bg="sand.50"
+      borderBottom="1px solid"
+      borderColor="sand.200"
+      px="3"
+    >
+      <HStack spacing="2.5" py="2">
+        <Image src={logo} alt="Swine Auction Committee" h="38px" objectFit="contain" />
+        <Text fontFamily="heading" fontWeight="800" fontSize="sm" display={{ base: "none", sm: "block" }}>
+          Swine Auction
+        </Text>
+      </HStack>
       <Spacer />
-      <Link px={{ base: "2", sm: "6" }} fontSize={{ base: "sm", sm: "md" }} color="gray.600" onClick={() => navigate("/precommit")} >
+      <Link {...linkStyle(path.includes("precommit"))} onClick={() => navigate("/precommit")}>
         Pre-Commitment
       </Link>
-      <Link px={{ base: "2", sm: "6" }} fontSize={{ base: "sm", sm: "md" }} onClick={() => navigate("/reporting")} >
+      <Link {...linkStyle(path.includes("reporting"))} onClick={() => navigate("/reporting")}>
         Reporting
       </Link>
-      <Link px={{ base: "2", sm: "6" }} fontSize={{ base: "sm", sm: "md" }} onClick={logout} >
+      <Link {...linkStyle(false)} onClick={logout}>
         Log Out
       </Link>
     </Flex>
-  )
+  );
 }

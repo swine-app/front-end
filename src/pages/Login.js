@@ -1,14 +1,15 @@
 // import { useRef, useState, useEffect, useContext } from "react";
 // import AuthContext from "./context/AuthProvider";
 // import axios from "axios";
-import { Box, Button, Flex, Input, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Image, Input, Text, useToast } from "@chakra-ui/react";
 import AuthContext from "../context/AuthProvider";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import logo from "../components/navigationControls/SwineAuctionLogo.jpg";
 
 const Login = () => {
-  const { auth, login } = useContext(AuthContext);
+  const { auth, login, demoLogin } = useContext(AuthContext);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [ loginSuccess, setLoginSuccess ] = useState(false);
   const toast = useToast();
@@ -50,7 +51,6 @@ const Login = () => {
       <form onSubmit={handleSubmit(onSubmit)} >
           <Flex
             w={{md: "2xl", sm: "96", base: "72"}}
-            h="80"
             border="1px"
             rounded="lg"
             shadow="2xl"
@@ -58,7 +58,9 @@ const Login = () => {
             flexDir="column"
             alignItems="center"
             justifyContent="center"
+            gap="2"
           >
+            <Image src={logo} alt="Swine Auction Committee" boxSize="80px" objectFit="contain" mb="1" />
             <Text fontSize="4xl" fontWeight="bold" pb="3">
               Swine Auction Committee
             </Text>
@@ -76,8 +78,12 @@ const Login = () => {
                 ""
                 )}
             </Box>
-            <Button colorScheme="blue" mt="2" type="submit">
+            <Button mt="2" type="submit">
               Login
+            </Button>
+            <Divider my="2" />
+            <Button variant="outline" w="full" onClick={() => { demoLogin(); navigate("/precommit"); }}>
+              Try Demo
             </Button>
           </Flex>
       </form>

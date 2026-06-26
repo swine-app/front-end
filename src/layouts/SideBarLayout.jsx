@@ -5,7 +5,9 @@ import TopBar from "../components/navigationControls/TopBar";
 export default function SideBarLayout({ children }) {
   return (
     <Grid
-      templateColumns={{ base: 'auto', md: "15em auto" }}
+      minH="100vh"
+      bg="paper"
+      templateColumns={{ base: "auto", md: "16em auto" }}
       templateRows={{ base: "4.3em auto", sm: "6em auto", md: "auto" }}
     >
       <Show above="md">
@@ -14,9 +16,9 @@ export default function SideBarLayout({ children }) {
       <Show below="md">
         <TopBar />
       </Show>
-      <Box p={{ base: "6", md: "8", lg: "16" }}>
+      <Box px={{ base: "5", md: "8", lg: "10" }} py={{ base: "6", md: "8" }}>
         {children}
       </Box>
-    </Grid>)
-
+    </Grid>
+  );
 }
